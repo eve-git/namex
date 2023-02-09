@@ -39,6 +39,7 @@ from flask import Flask
 from namex import nro
 from namex.models import db, Event, Payment, Request as RequestDAO, State, User  # noqa:I001; import orders
 from namex.services import EventRecorder, queue  # noqa:I005;
+from namex.resources.name_requests.abstract_nr_resource import AbstractNameRequestResource
 from queue_common.messages import create_cloud_event_msg  # noqa:I005
 from queue_common.service import QueueServiceManager
 from queue_common.service_utils import QueueException, logger
@@ -98,6 +99,12 @@ async def update_payment_record(payment: Payment) -> Optional[Payment]:
     # As RESUBMIT is a new NR it should follow the same flow as CREATE
     if payment_action in [Payment.PaymentActions.CREATE.value, Payment.PaymentActions.RESUBMIT.value]:  \
             # pylint: disable=R1705
+        # if valid_payment_action and valid_nr_state:
+        #     if payment_action in [NameRequestActions.CREATE.value, NameRequestActions.RESUBMIT.value]:
+        # Save the record to NRO, which swaps the NR-L Number for a real NR, also update solr
+        nameRequestResource = AbstractNameRequestResource()
+        nr_model = nameRequestResource.add_records_to_network_services(nr_model, True)
+        
         if nr.stateCd == State.PENDING_PAYMENT:
             nr.stateCd = State.DRAFT
             nr.save_to_db()

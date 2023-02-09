@@ -395,12 +395,6 @@ class CreateNameRequestPayment(AbstractNameRequestResource):
             if not valid_nr_state:
                 return jsonify(message=f'Invalid NR state [{payment_action}]'), 400
 
-            if valid_payment_action and valid_nr_state:
-                if payment_action in [NameRequestActions.CREATE.value, NameRequestActions.RESUBMIT.value]:
-                    # Save the record to NRO, which swaps the NR-L Number for a real NR
-                    update_solr = True
-                    nr_model = self.add_records_to_network_services(nr_model, update_solr)
-
             existing_payment = PaymentDAO.find_by_existing_nr_id(nr_id, payment_action)
             if existing_payment :
                 # if we already have a payment record, we can request existing payment status and return it
