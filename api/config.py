@@ -89,10 +89,11 @@ permits-licences/businesses-incorporated-companies/approval-business-name')
 
     JWT_OIDC_AUDIENCE = os.getenv('JWT_OIDC_AUDIENCE')
 
-    SBC_SVC_AUTH_URL = os.getenv('KEYCLOAK_AUTH_TOKEN_URL', '')
-    SBC_SVC_AUTH_CLIENT_ID = os.getenv('NAMEX_SBC_SERVICE_ACCOUNT_CLIENT_ID', '')
-    SBC_SVC_CLIENT_SECRET = os.getenv('NAMEX_SBC_SERVICE_ACCOUNT_CLIENT_SECRET', '')
+    COLIN_SVC_AUTH_URL = os.getenv('KEYCLOAK_AUTH_TOKEN_URL', '')
+    COLIN_SVC_AUTH_CLIENT_ID = os.getenv('NAME_REQUEST_SERVICE_ACCOUNT_CLIENT_ID', '')
+    COLIN_SVC_CLIENT_SECRET = os.getenv('NAME_REQUEST_SERVICE_ACCOUNT_CLIENT_SECRET', '')
 
+    ENTITY_SVC_AUTH_URL = os.getenv('KEYCLOAK_AUTH_TOKEN_URL', '')
     ENTITY_SERVICE_ACCOUNT_CLIENT_ID = os.getenv('ENTITY_SERVICE_ACCOUNT_CLIENT_ID', '')
     ENTITY_SERVICE_ACCOUNT_CLIENT_SECRET = os.getenv('ENTITY_SERVICE_ACCOUNT_CLIENT_SECRET', '')
 
@@ -103,7 +104,6 @@ permits-licences/businesses-incorporated-companies/approval-business-name')
     # You can disable NRO updates for Name Requests by setting the variable in your .env / OpenShift configuration
     DISABLE_NAMEREQUEST_NRO_UPDATES = int(os.getenv('DISABLE_NAMEREQUEST_NRO_UPDATES', 0))
     DISABLE_NAMEREQUEST_SOLR_UPDATES = int(os.getenv('DISABLE_NAMEREQUEST_SOLR_UPDATES', 0))
-
 
     GCP_AUTH_KEY = os.getenv('BUSINESS_GCP_AUTH_KEY', None)
     NAMEX_NR_STATE_TOPIC = os.getenv('NAMEX_NR_STATE_TOPIC', '')
